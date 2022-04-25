@@ -49,7 +49,7 @@ class VentanaPrincipal(QMainWindow):
     # Animación de paginas
     def pagina_uno(self):
         self.stackedWidget.setCurrentWidget(self.page_uno)
-        self.animacion_paginas()
+        self.animacion_paginas
     def pagina_dos(self):
         self.stackedWidget.setCurrentWidget(self.page_dos)
         self.animacion_paginas
