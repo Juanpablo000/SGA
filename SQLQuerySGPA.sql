@@ -210,7 +210,6 @@ CREATE USER AdminBDSGA FOR LOGIN AdminBDSGA
 ALTER ROLE db_owner ADD member AdminBDSGA
 GO
 
-
 CREATE PROCEDURE SP_RegistrarDetalleFactura(	
 	@NumFactura as varchar(40),
 	@Descripcion as varchar(40),
@@ -220,7 +219,12 @@ CREATE PROCEDURE SP_RegistrarDetalleFactura(
 AS 
 BEGIN
 	INSERT INTO DetalleFactura(NumeroFactura, Descripcion, Cantidad, TotalDetalle)
-	VALUES (@NumFactura, @Descripcion, @Cantidad,@TotalDetalle);
+	VALUES (@NumFactura, @Descripcion, @Cantidad,@TotalDetalle)
+
+	UPDATE Articulos
+	SET Cantidad=Cantidad-@Cantidad
+	WHERE NombreArticulo=@Descripcion
+
 END
 GO
 
