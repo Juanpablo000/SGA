@@ -78,7 +78,7 @@ ADD CONSTRAINT FK_Proeevedor
 FOREIGN KEY (IdProeevedor) 
 REFERENCES Proeevedores (IdProeevedor)
 
-/*Creacion de la llave foranea para la tabla de facturación*/
+/*Creacion de la llave foranea para la tabla de facturaciï¿½n*/
 ALTER TABLE Facturacion
 ADD CONSTRAINT FK_Pago
 FOREIGN KEY (IdPago) 
@@ -152,10 +152,50 @@ BEGIN
 	VALUES (@IdDoc, @NumeroDoc, @Nombres,@Apellidos,@IdEmpresa);
 END
 
-EXECUTE SP_ActualizarProeevedores 1543789432,2,'David', 'Muñoz Gomez', 5
+EXECUTE SP_ActualizarProeevedores 1543789432,2,'David', 'Muï¿½oz Gomez', 5
 
 select * from Proeevedores
 
 select * from EmpresasProeevedoras
 
 select * from Clientes
+
+
+CREATE PROCEDURE SP_RegistarArticulos
+(
+@NombreArticulo as varchar(40),
+@PrecioVenta as int,
+@PrecioUnitario as int,
+@Cantidad as varchar(40),
+@IdCategoria as varchar(40),
+@IdProeevedor as int
+)
+AS 
+BEGIN
+	INSERT INTO Articulos(NombreArticulo, PrecioVenta, PrecioUnitario, Cantidad, IdCategoria, IdProeevedor)
+	VALUES (@NombreArticulo, @PrecioVenta, @PrecioUnitario,@Cantidad,@IdCategoria,@IdProeevedor);
+END
+
+EXECUTE SP_RegistarArticulos 'Salchicha de cerdo', 5500, 3000, 100, 1, 1
+
+Select * from Categorias
+Select * from Proeevedores
+
+Select * from Articulos
+
+CREATE PROCEDURE SP_ActualizarStock
+(
+@ID_Articulo as int,
+@Cantidad as varchar(40)
+)
+AS 
+BEGIN
+	UPDATE Articulos
+	SET Cantidad=@Cantidad
+	WHERE IdArticulo=@ID_Articulo
+END
+
+EXECUTE SP_ActualizarStock 1,110
+
+
+Select * from Articulos
