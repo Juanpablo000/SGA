@@ -177,13 +177,26 @@ BEGIN
 	VALUES (@NombreArticulo, @PrecioVenta, @PrecioUnitario,@Cantidad,@NombreCategoria,@IdProeevedor);
 END
 GO
+
+select IdArticulo from Articulos
+
+
+select IdArticulo, NombreArticulo, PrecioVenta, PrecioUnitario, Cantidad, NombreCategoria, (p.Nombres + ' '+p.Apellidos) AS Nombre
+FROM Articulos at
+INNER JOIN Proeevedores p ON  p.IdProeevedor = at.IdProeevedor
+
+
+
+select IdProeevedor from Proeevedores
+
+Select * from Articulos where IdArticulo =2
+
 /*
 EXECUTE SP_RegistarArticulos 'Salchicha de cerdo', 5500, 3000, 100, 1, 1
 
 Select * from Categorias
 Select * from Proeevedores
 
-Select * from Articulos
 */
 
 CREATE PROCEDURE SP_ActualizarStock
@@ -198,7 +211,13 @@ BEGIN
 	WHERE IdArticulo=@ID_Articulo
 END
 GO
-/*
+
+select * from Articulos
+
+
+
+Select NombreArticulo ,Cantidad from Articulos where IdArticulo = 1
+
 EXECUTE SP_ActualizarStock 1,110
 */
 
@@ -209,6 +228,8 @@ CREATE USER AdminBDSGA FOR LOGIN AdminBDSGA
 
 ALTER ROLE db_owner ADD member AdminBDSGA
 GO
+select * from DetalleFactura
+select * from Facturacion
 
 CREATE PROCEDURE SP_RegistrarDetalleFactura(	
 	@NumFactura as varchar(40),
@@ -228,7 +249,7 @@ BEGIN
 END
 GO
 
-
+select * from Facturacion
 
 CREATE PROCEDURE SP_RegistrarFactura(
 	@NumFactura as varchar(40),
@@ -246,6 +267,8 @@ BEGIN
 END
 GO
 
+select count (NumeroFactura) from Facturacion
+
 CREATE PROCEDURE SP_RegistrarDevoluciones(	
 	@NumFactura as varchar(40),
 	@IdArticulo as int,	
@@ -259,3 +282,13 @@ BEGIN
 	VALUES (@NumFactura, @IdArticulo, @Cantidad,@Motivo,@Fecha);
 END
 GO
+
+SELECT NumeroDocumento, TipoDoc, Nombres, Apellidos, NombreComercial, Direccion, Ciudad, Telefono   FROM Proeevedores
+SELECT NumeroDocumento, TipoDoc, Nombres, Apellidos, Direccion, Ciudad, Telefono   FROM Clientes
+
+
+select * from Clientes
+
+
+Delete from Clientes
+where IdCliente=7
